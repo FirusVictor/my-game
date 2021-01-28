@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+body {
+    background: #333333;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: #F0F0F0;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.button {
+    padding: 13px 18px;
+    background: linear-gradient(119.81deg, #454545 16.92%, #342A2A 80.03%);
+    border: 1px solid #484848;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin: 0 25px;
+
+    font-size: 20px;
+    line-height: 23px;
+
+    color: #FFFFFF;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+}
+
+.button > * {
+    position: relative;
+    z-index: 1;
+}
+
+.button::before {
+    content: '';
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #000;
+    position: absolute;
+    transition: 0.2s ease-in-out;
+    background: linear-gradient(119.81deg, #867171 16.92%, #6D5353 80.03%);
+    opacity: 0;
+}
+.button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+.button:disabled::before {
+    opacity: 0 !important;
+}
+
+.button:hover::before,
+.button.active::before {
+    opacity: 1;
+}
+.input{
+    background: #3C3C3C;
+    border-radius: 4px;
+    font-size: 24px;
+    line-height: 28px;
+    color: #fff;
+    padding: 10px;
+    border: 0;
+    letter-spacing: 2px;
+}
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(4, 4, 4, 0.83);
+    z-index: 1000;
+    display: none;
+}
+.modal{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background: rgba(35, 35, 35, 0.5);
+    border: 2px solid #2D2D2D;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.modal .content{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+.modal .content .button{
+    margin: 0 25px 0 0;
+}

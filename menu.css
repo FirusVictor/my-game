@@ -1,0 +1,127 @@
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -10;
+    filter: blur(10px);
+}
+.ui-dark-bg{
+    background: rgba(35, 35, 35, 0.5);
+    border: 2px solid #2D2D2D;
+}
+
+#game {
+    width: 100%;
+    height: 100vh;
+}
+
+#window_create,
+#window_join{
+    display: none;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.menu .left-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+
+    width: 350px;
+    margin: 0 40px;
+}
+.menu .left-menu .button{
+    width: 250px;
+    margin-top: 25px;
+}
+.menu .game-name {
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #C0C0C0;
+    margin: 0 25px;
+}
+
+.menu>.main-content{
+    flex: 1;
+    margin: 40px 40px 40px 0;
+    padding: 50px;
+}
+.menu .main-content>*{
+    height: 100%;
+}
+
+.main-content .window{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#window_create .map{
+    height: 200px;
+    background: #333;
+    border-radius: 4px;
+}
+#window_create .description{
+    padding: 20px 0;
+    flex: 1;
+}
+#window_create #btn_start-game{
+    align-self: flex-start;
+}
+#window_create #btn_start-game.active{
+    opacity: 1;
+}
+
+#window_join .list{
+    background: #363636;
+    border-radius: 4px;
+    flex: 1;
+    padding: 10px;
+    margin-bottom: 50px;
+    overflow: auto;
+}
+#window_join .list .item{
+    background: #4E4343;
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+    margin: 10px;
+}
+#window_join .list .item.active{
+    background: #826868;
+}
+#window_join #btn_join-game{
+    align-self: flex-start;
+}
+.modal.change_name .input{
+    margin: 25px 0;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+.modal.change_name{
+    align-items: center;
+    width: 450px;
+}
+.modal.change_name .bottom-panel{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

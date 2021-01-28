@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+<div id="game">
+    <div id="menu" class="menu">
+        <video class="bg-video" src="assets/video/bg.mp4" autoplay loop muted></video>
+        <div class="left-menu ui-dark-bg">
+            <h1 class="game-name">GAME NAME</h1>
+            <button class="button" onclick="menu.openMenu(menu.menuButtons.CREATE)"><span>создать игру</span></button>
+            <button class="button" onclick="menu.openMenu(menu.menuButtons.JOIN)"><span>подключиться</span></button>
+            <button class="button" onclick="menu.openMenu(menu.menuButtons.CHANGE_NAME)"><span>Сменить имя</span>
+            </button>
+            <button class="button" onclick="menu.openMenu(menu.menuButtons.EXIT)"><span>Выход</span></button>
+        </div>
+        <div class="main-content ui-dark-bg">
+            <div id="window_create">
+                <div class="window">
+                    <div class="map"></div>
+                    <div class="description">Описание карты</div>
+                    <button class="button" disabled id="btn_start-game"><span>начать игру</span></button>
+                </div>
+            </div>
+            <div id="window_join">
+                <div class="window">
+                    <div class="list">
+                        <div class="item">
+                            <div class="title">Название сервера</div>
+                            <div class="count">3 / 10</div>
+                        </div>
+                        <div class="item">
+                            <div class="title">Название сервера</div>
+                            <div class="count">3 / 10</div>
+                        </div>
+                        <div class="item">
+                            <div class="title">Название сервера</div>
+                            <div class="count">3 / 10</div>
+                        </div>
+                        <div class="item">
+                            <div class="title">Название сервера</div>
+                            <div class="count">3 / 10</div>
+                        </div>
+                        <div class="item">
+                            <div class="title">Название сервера</div>
+                            <div class="count">3 / 10</div>
+                        </div>
+                    </div>
+                    <button class="button" disabled id="btn_join-game"><span>подключиться</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal change_name">
+            <div class="content">
+                <div class="title">Введите имя персонажа:</div>
+                <label>
+                    <input placeholder="Имя" class="input" id="input_player_name" type="text">
+                </label>
+                <div class="bottom-panel">
+                    <button class="button" onclick="menu.saveName()"><span>сохранить</span></button>
+                    <button class="button" onclick="menu.closeModalChangeName()"><span>отмена</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay"></div>
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/main.js"></script>
+<script src="js/menu.js"></script>
+</body>
+</html>
