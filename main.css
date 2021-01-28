@@ -107,3 +107,19 @@ a {
 .modal .content .button{
     margin: 0 25px 0 0;
 }
+#game{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#game *{
+    position: absolute;
+}
+
+player{
+    background: #b14b4b;
+    height: 1px;
+    width: 1px;
+}

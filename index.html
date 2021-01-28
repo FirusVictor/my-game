@@ -11,11 +11,13 @@
 </head>
 <body>
 
-<div id="game">
+<div id="main">
     <div id="menu" class="menu">
         <video class="bg-video" src="assets/video/bg.mp4" autoplay loop muted></video>
         <div class="left-menu ui-dark-bg">
             <h1 class="game-name">GAME NAME</h1>
+            <button class="button" onclick="menu.openMenu(menu.menuButtons.TEST)"><span>Тест</span></button>
+
             <button class="button" onclick="menu.openMenu(menu.menuButtons.CREATE)"><span>создать игру</span></button>
             <button class="button" onclick="menu.openMenu(menu.menuButtons.JOIN)"><span>подключиться</span></button>
             <button class="button" onclick="menu.openMenu(menu.menuButtons.CHANGE_NAME)"><span>Сменить имя</span>
@@ -70,6 +72,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="game">
+
     </div>
 </div>
 
