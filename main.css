@@ -55,10 +55,12 @@ a {
     background: linear-gradient(119.81deg, #867171 16.92%, #6D5353 80.03%);
     opacity: 0;
 }
+
 .button:disabled {
     opacity: 0.5;
     cursor: default;
 }
+
 .button:disabled::before {
     opacity: 0 !important;
 }
@@ -67,7 +69,8 @@ a {
 .button.active::before {
     opacity: 1;
 }
-.input{
+
+.input {
     background: #3C3C3C;
     border-radius: 4px;
     font-size: 24px;
@@ -77,7 +80,8 @@ a {
     border: 0;
     letter-spacing: 2px;
 }
-.overlay{
+
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -87,7 +91,8 @@ a {
     z-index: 1000;
     display: none;
 }
-.modal{
+
+.modal {
     display: none;
     position: fixed;
     top: 50%;
@@ -99,27 +104,36 @@ a {
     box-sizing: border-box;
     border-radius: 4px;
 }
-.modal .content{
+
+.modal .content {
     display: flex;
     flex-direction: column;
     padding: 50px;
 }
-.modal .content .button{
+
+.modal .content .button {
     margin: 0 25px 0 0;
 }
-#game{
+
+#game {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    display: none;
 }
-#game *{
+
+#game * {
     position: absolute;
 }
 
-player{
+player {
     background: #b14b4b;
     height: 1px;
     width: 1px;
+}
+
+sprite {
+    transform: translate3d(-50%, -50%, 0px);
 }
