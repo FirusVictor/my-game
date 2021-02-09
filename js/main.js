@@ -1,3 +1,8 @@
+let globalMouse = {
+    x: 0,
+    y: 0
+}
+
 class MenuUI {
     activeWindow = null;
     menuButtons = {
@@ -73,7 +78,8 @@ class Player {
         y: 200,
         dx: 0,
         dy:0,
-        speed: 5
+        angle: 0,
+        speed: 10
     }
 
     // html объекты
@@ -262,31 +268,40 @@ class Player {
     startRotate(){
         let body = $('body');
         body.on("mousemove",(event)=>{
-            let mouseX = event.clientX;
-            let mouseY = event.clientY;
-            let deg = ((Math.atan2(mouseY - this.position.y, mouseX - this.position.x) + 2 * Math.PI) * 180 / Math.PI) % 360;
-            this.obj.css({transform:`rotate(${deg}deg)`})
+            globalMouse = {x: event.clientX, y: event.clientY};
+            this.updateAngle();
         })
+    }
+    updateAngle(){
+        this.position.angle = ((Math.atan2(globalMouse.y - this.position.y, globalMouse.x - this.position.x) + 2 * Math.PI) * 180 / Math.PI) % 360;
+        this.obj.css({transform:`rotate(${this.position.angle}deg)`})
     }
 
     startMovement(){
         let body = $('body');
         body.on('keydown',(event)=>{
+            this.updateAngle();
+            this.position.dx = 0;
+            this.position.dy = 0;
             switch (event.code){
                 case 'KeyA':
-                    this.position.dx = -5
+                    this.position.dx += -Math.sin((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
+                    this.position.dy += -Math.cos((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
                     this.setAnimation(this.animationData.flashlight.move);
                     break;
                 case 'KeyW':
-                    this.position.dy = -5
+                    this.position.dx += Math.cos((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
+                    this.position.dy += -Math.sin((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
                     this.setAnimation(this.animationData.flashlight.move);
                     break;
                 case 'KeyD':
-                    this.position.dx = 5
+                    this.position.dx += Math.sin((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
+                    this.position.dy += Math.cos((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
                     this.setAnimation(this.animationData.flashlight.move);
                     break;
                 case 'KeyS':
-                    this.position.dy = 5
+                    this.position.dx += -Math.cos((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
+                    this.position.dy += Math.sin((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
                     this.setAnimation(this.animationData.flashlight.move);
                     break;
             }
@@ -295,15 +310,14 @@ class Player {
             switch (event.code){
                 case 'KeyA':
                 case 'KeyD':
-                    this.position.dx = 0
-                    break;
                 case 'KeyW':
                 case 'KeyS':
+                    this.position.dx = 0
                     this.position.dy = 0
                     break;
             }
             if(this.position.dx === 0 && this.position.dy === 0){
-                this.setAnimation(this.animation.flashlight.idle);
+                this.setAnimation(this.animationData.flashlight.idle);
             }
         });
         setInterval(()=>{
@@ -318,10 +332,12 @@ class Player {
         let index = 0;
         this.setAnimation(this.animationData.flashlight.idle);
         let animationTimer = setInterval(() => {
-            this.sprite.css({background: `url(assets/img/player/${this.animation.name}${index}${this.animation.endName})`})
+            this.sprite.css({
+                background: `url(assets/img/player/${this.animation.name}${index}${this.animation.endName})`,
+                'background-size': 'cover'
+            })
             index++;
             index = index % this.animation.count;
-            console.log(this.animation.name);
         }, 50);
     }
 
@@ -334,8 +350,8 @@ class Player {
 
     setAnimation(animation) {
         this.animation = animation;
-        this.sprite.width(animation.width);
-        this.sprite.height(animation.height);
+        this.sprite.width(animation.width / 1.5);
+        this.sprite.height(animation.height / 1.5);
     }
 }
 
