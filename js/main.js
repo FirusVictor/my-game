@@ -81,12 +81,18 @@ class Player {
         dx: 0,
         dy: 0,
         angle: 0,
-        speed: 10
+        speed: 10,
+        radius: 70
     }
 
     // html объекты
     obj = $(`<player></player>`);
     sprite = $('<sprite></sprite>');
+    mesh = $(`<mesh></mesh>`).css({
+        width: this.position.radius * 2,
+        height: this.position.radius * 2
+    })
+
 
     // анимация
     animationData = {
@@ -263,6 +269,7 @@ class Player {
         this.startRotate();
 
         // добавляем html объекты персонажа в игру
+        this.mesh.appendTo(this.obj);
         this.sprite.appendTo(this.obj);
         this.obj.appendTo('#game');
     }
@@ -413,24 +420,25 @@ class Map {
     obj = $(`<map></map>`).css({zoom: this.scale});
 
     constructor() {
-        let floor =  $(`<floor></floor>`).css({
-            width:this.objects.floor.w,
-            left:this.objects.floor.x,
-            top:this.objects.floor.y,
-            height:this.objects.floor.h,
+        let floor = $(`<floor></floor>`).css({
+            width: this.objects.floor.w,
+            left: this.objects.floor.x,
+            top: this.objects.floor.y,
+            height: this.objects.floor.h,
         })
+        floor.appendTo(this.obj)
         for (let i = 0; i < this.objects.walls.length; i++) {
             let bg;
-            if(this.objects.walls[i].h < this.objects.walls[i].w){
+            if (this.objects.walls[i].h < this.objects.walls[i].w) {
                 bg = 'url(assets/img/walls/horizontal.png)'
-            }else {
+            } else {
                 bg = 'url(assets/img/walls/vertical.png)'
             }
             let wall = $(`<wall></wall>`).css({
-                width:this.objects.walls[i].w,
-                left:this.objects.walls[i].x,
-                top:this.objects.walls[i].y,
-                height:this.objects.walls[i].h,
+                width: this.objects.walls[i].w,
+                left: this.objects.walls[i].x,
+                top: this.objects.walls[i].y,
+                height: this.objects.walls[i].h,
                 background: bg
             })
             wall.appendTo(this.obj)
