@@ -61,8 +61,10 @@ class MenuUI {
 
 class Game {
     players = [];
+    map;
 
     LoadGame() {
+        this.map = new Map();
         this.players.push(new Player());
     }
 }
@@ -77,7 +79,7 @@ class Player {
         x: 200,
         y: 200,
         dx: 0,
-        dy:0,
+        dy: 0,
         angle: 0,
         speed: 10
     }
@@ -111,7 +113,7 @@ class Player {
                 height: 231
             }
         },
-        handgun:{
+        handgun: {
             idle: {
                 count: 20,
                 name: 'handgun/idle/survivor-idle_handgun_',
@@ -148,7 +150,7 @@ class Player {
                 height: 215
             },
         },
-        knife:{
+        knife: {
             idle: {
                 count: 20,
                 name: 'knife/idle/survivor-idle_knife_',
@@ -171,7 +173,7 @@ class Player {
                 height: 219
             },
         },
-        rifle:{
+        rifle: {
             idle: {
                 count: 20,
                 name: 'rifle/idle/survivor-idle_rifle_',
@@ -208,7 +210,7 @@ class Player {
                 height: 206
             },
         },
-        shotgun:{
+        shotgun: {
             idle: {
                 count: 20,
                 name: 'shotgun/idle/survivor-idle_shotgun_',
@@ -247,7 +249,7 @@ class Player {
 
             },
         }
-        };
+    };
     animation;
     animationTimer;
 
@@ -265,25 +267,26 @@ class Player {
         this.obj.appendTo('#game');
     }
 
-    startRotate(){
+    startRotate() {
         let body = $('body');
-        body.on("mousemove",(event)=>{
+        body.on("mousemove", (event) => {
             globalMouse = {x: event.clientX, y: event.clientY};
             this.updateAngle();
         })
     }
-    updateAngle(){
+
+    updateAngle() {
         this.position.angle = ((Math.atan2(globalMouse.y - this.position.y, globalMouse.x - this.position.x) + 2 * Math.PI) * 180 / Math.PI) % 360;
-        this.obj.css({transform:`rotate(${this.position.angle}deg)`})
+        this.obj.css({transform: `rotate(${this.position.angle}deg)`})
     }
 
-    startMovement(){
+    startMovement() {
         let body = $('body');
-        body.on('keydown',(event)=>{
+        body.on('keydown', (event) => {
             this.updateAngle();
             this.position.dx = 0;
             this.position.dy = 0;
-            switch (event.code){
+            switch (event.code) {
                 case 'KeyA':
                     this.position.dx += -Math.sin((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
                     this.position.dy += -Math.cos((360 - this.position.angle) * (Math.PI / 180)) * this.position.speed;
@@ -306,8 +309,8 @@ class Player {
                     break;
             }
         });
-        body.on('keyup',(event)=>{
-            switch (event.code){
+        body.on('keyup', (event) => {
+            switch (event.code) {
                 case 'KeyA':
                 case 'KeyD':
                 case 'KeyW':
@@ -316,16 +319,16 @@ class Player {
                     this.position.dy = 0
                     break;
             }
-            if(this.position.dx === 0 && this.position.dy === 0){
+            if (this.position.dx === 0 && this.position.dy === 0) {
                 this.setAnimation(this.animationData.flashlight.idle);
             }
         });
-        setInterval(()=>{
+        setInterval(() => {
             this.position.x += this.position.dx
             this.position.y += this.position.dy
 
             this.setPosition();
-        }, 1000/60);
+        }, 1000 / 60);
     }
 
     startAnimation(animation = this.animationData.flashlight.idle) {
@@ -352,6 +355,69 @@ class Player {
         this.animation = animation;
         this.sprite.width(animation.width / 1.5);
         this.sprite.height(animation.height / 1.5);
+    }
+}
+
+class Map {
+    scale = 1; //Изменение масштаба карты. По умолчанию  = 1
+    objects = {
+        walls: [
+            {x: 0, y: 400, w: 100, h: 15},
+            {x: 200, y: 400, w: 300, h: 15},
+            {x: 500, y: 188, w: 15, h: 227},
+            {x: 500, y: 0, w: 15, h: 88},
+            {x: 515, y: 400, w: 239, h: 15},
+            {x: 754, y: 88, w: 15, h: 327},
+            {x: 754, y: 80, w: 600, h: 15},
+            {x: 1039, y: 95, w: 15, h: 320},
+            {x: 1309, y: 181, w: 15, h: 263},
+            {x: 1324, y: 181, w: 758, h: 15},
+            {x: 2082, y: 181, w: 15, h: 114},
+            {x: 2082, y: 295, w: 114, h: 15},
+            {x: 2196, y: 169, w: 15, h: 141},
+            {x: 2196, y: 0, w: 15, h: 70},
+            {x: 2196, y: 525, w: 15, h: 197},
+            {x: 2211, y: 616, w: 300, h: 15},
+            {x: 2511, y: 0, w: 15, h: 631},
+            {x: 1309, y: 922, w: 902, h: 15},
+            {x: 1294, y: 617, w: 15, h: 320},
+            {x: 407, y: 602, w: 902, h: 15},
+            {x: 850, y: 617, w: 15, h: 469},
+            {x: 392, y: 602, w: 15, h: 130},
+            {x: 267, y: 732, w: 140, h: 15},
+            {x: 252, y: 732, w: 15, h: 462},
+            {x: -4, y: 732, w: 156, h: 15},
+            {x: 0, y: 1294, w: 267, h: 15},
+            {x: 476, y: 1186, w: 818, h: 15},
+            {x: 375, y: 1344, w: 15, h: 187},
+            {x: 375, y: 1631, w: 15, h: 326},
+            {x: 532, y: 1344, w: 15, h: 112},
+            {x: 532, y: 1556, w: 15, h: 255},
+            {x: 532, y: 1811, w: 3097, h: 15},
+            {x: 2631, y: 1456, w: 15, h: 255},
+            {x: 2746, y: 1448, w: 868, h: 15},
+            {x: 3614, y: 0, w: 15, h: 1811},
+            {x: 0, y: 1957, w: 390, h: 15},
+            {x: 382, y: 1811, w: 150, h: 15},
+            {x: 0, y: 0, w: 15, h: 1957},
+            {x: 15, y: 0, w: 3599, h: 15},
+
+        ]
+    }
+    obj = $(`<map></map>`).css({zoom: this.scale});
+
+    constructor() {
+        for (let i = 0; i < this.objects.walls.length; i++) {
+            let wall = $(`<wall></wall>`).css({
+                width:this.objects.walls[i].w,
+                left:this.objects.walls[i].x,
+                top:this.objects.walls[i].y,
+                height:this.objects.walls[i].h,
+            })
+            wall.appendTo(this.obj)
+        }
+
+        this.obj.appendTo('#game');
     }
 }
 
