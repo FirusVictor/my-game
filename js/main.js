@@ -390,16 +390,16 @@ class Map {
             {x: 0, y: 1294, w: 267, h: 15},
             {x: 476, y: 1186, w: 818, h: 15},
             {x: 375, y: 1344, w: 15, h: 187},
-            {x: 375, y: 1631, w: 15, h: 326},
+            {x: 375, y: 1631, w: 15, h: 180},
             {x: 532, y: 1344, w: 15, h: 112},
             {x: 532, y: 1556, w: 15, h: 255},
             {x: 532, y: 1811, w: 3097, h: 15},
             {x: 2631, y: 1456, w: 15, h: 255},
             {x: 2746, y: 1448, w: 868, h: 15},
             {x: 3614, y: 0, w: 15, h: 1811},
-            {x: 0, y: 1957, w: 390, h: 15},
+            {x: 0, y: 1811, w: 390, h: 15},
             {x: 382, y: 1811, w: 150, h: 15},
-            {x: 0, y: 0, w: 15, h: 1957},
+            {x: 0, y: 0, w: 15, h: 1826},
             {x: 15, y: 0, w: 3599, h: 15},
 
         ],
@@ -420,11 +420,18 @@ class Map {
             height:this.objects.floor.h,
         })
         for (let i = 0; i < this.objects.walls.length; i++) {
+            let bg;
+            if(this.objects.walls[i].h < this.objects.walls[i].w){
+                bg = 'url(assets/img/walls/horizontal.png)'
+            }else {
+                bg = 'url(assets/img/walls/vertical.png)'
+            }
             let wall = $(`<wall></wall>`).css({
                 width:this.objects.walls[i].w,
                 left:this.objects.walls[i].x,
                 top:this.objects.walls[i].y,
                 height:this.objects.walls[i].h,
+                background: bg
             })
             wall.appendTo(this.obj)
         }
