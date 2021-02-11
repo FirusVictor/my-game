@@ -402,11 +402,23 @@ class Map {
             {x: 0, y: 0, w: 15, h: 1957},
             {x: 15, y: 0, w: 3599, h: 15},
 
-        ]
+        ],
+        floor: {
+            x: 0,
+            y: 0,
+            w: 3614,
+            h: 1811
+        }
     }
     obj = $(`<map></map>`).css({zoom: this.scale});
 
     constructor() {
+        let floor =  $(`<floor></floor>`).css({
+            width:this.objects.floor.w,
+            left:this.objects.floor.x,
+            top:this.objects.floor.y,
+            height:this.objects.floor.h,
+        })
         for (let i = 0; i < this.objects.walls.length; i++) {
             let wall = $(`<wall></wall>`).css({
                 width:this.objects.walls[i].w,

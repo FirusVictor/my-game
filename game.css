@@ -1,0 +1,14 @@
+floor{
+    background: url(assets/img/floor.png);
+}
+player {
+    background: #b14b4b;
+    height: 1px;
+    width: 1px;
+}
+wall{
+    background: #6D5353;
+}
+sprite {
+    transform: translate3d(-50%, -50%, 0px);
+}
