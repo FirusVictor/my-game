@@ -1,0 +1,77 @@
+interface{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+interface .map{
+    height: 200px;
+    width: 200px;
+    background: #333333;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 2px 7px 1px rgb(0 0 0 / 40%);
+    border: 4px solid #fff;
+    border-radius: 10px 0 0 0;
+}
+interface .heel{
+    width: 75px;
+    height: 36px;
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    background: #ffffff;
+    border: 1px solid #696969;
+    border-radius: 10px 10px 0 0;
+    font-size: 27px;
+    font-weight: bold;
+    color: #ea3636;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 40px;
+    box-shadow: 0 2px 7px 1px rgb(0, 0, 0, 0.4);
+}
+interface .heel .count{
+    position: absolute;
+    top: -7px;
+    right: -5px;
+    font-size: 18px;
+    color: #585858;
+    background: #fff;
+    border-radius: 20px;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    box-shadow: 0 2px 7px 1px rgb(0, 0, 0, 0.4);
+}
+interface .hp{
+    position: absolute;
+    bottom: 0;
+    left: 207px;
+    right: 248px;
+    max-width: 350px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 1px 10px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 7px 1px rgb(0 0 0 / 40%);
+}
+interface .hp .line{
+    height: 30px;
+    flex: 1;
+    background: #808080;
+    border-radius: 10px;
+    /* border: 2px solid #ccc; */
+    margin: 9px;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 30%)
+}
+interface .hp .progress{
+    background: #70cc4f;
+    height: 30px;
+    width: 50%;
+    border-radius: 10px;
+}

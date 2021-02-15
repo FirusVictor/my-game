@@ -93,6 +93,7 @@ class Player {
         height: this.position.radius * 2
     })
 
+    interface = $(`<interface></interface>`);
 
     // анимация
     animationData = {
@@ -273,6 +274,8 @@ class Player {
         this.mesh.appendTo(this.obj);
         this.sprite.appendTo(this.obj);
         this.obj.appendTo(game.map.obj);
+
+        this.interface.appendTo($('#game'));
     }
 
     startRotate() {
