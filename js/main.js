@@ -81,8 +81,8 @@ class Player {
         dx: 0,
         dy: 0,
         angle: 0,
-        speed: 10,
-        radius: 70
+        speed: 3,
+        radius: 20
     }
 
     // html объекты
@@ -258,6 +258,7 @@ class Player {
     };
     animation;
     animationTimer;
+    scale = 2.5;
 
     constructor() {
         // ставим персонажа в начальные координаты
@@ -271,7 +272,7 @@ class Player {
         // добавляем html объекты персонажа в игру
         this.mesh.appendTo(this.obj);
         this.sprite.appendTo(this.obj);
-        this.obj.appendTo('#game');
+        this.obj.appendTo(game.map.obj);
     }
 
     startRotate() {
@@ -283,7 +284,7 @@ class Player {
     }
 
     updateAngle() {
-        this.position.angle = ((Math.atan2(globalMouse.y - this.position.y, globalMouse.x - this.position.x) + 2 * Math.PI) * 180 / Math.PI) % 360;
+        this.position.angle = ((Math.atan2(globalMouse.y - this.position.y - game.map.position.y, globalMouse.x - this.position.x - game.map.position.x) + 2 * Math.PI) * 180 / Math.PI) % 360;
         this.obj.css({transform: `rotate(${this.position.angle}deg)`})
     }
 
@@ -331,11 +332,29 @@ class Player {
             }
         });
         setInterval(() => {
+            let stop = false;
+            game.map.objects.walls.forEach((item) => {
+                if (circleRect(
+                    this.position.x + this.position.dx,
+                    this.position.y + this.position.dy,
+                    this.position.radius,
+                    item.x,
+                    item.y,
+                    item.w,
+                    item.h
+                )) {
+                    stop = true;
+                }
+            })
+            if (stop) {
+                return;
+            }
+
             this.position.x += this.position.dx
             this.position.y += this.position.dy
 
             this.setPosition();
-        }, 1000 / 60);
+        }, 500 / 60);
     }
 
     startAnimation(animation = this.animationData.flashlight.idle) {
@@ -352,7 +371,13 @@ class Player {
     }
 
     setPosition() {
-        this.obj.offset({
+
+        game.map.setPosition(
+            (window.innerWidth - window.innerWidth / 2 - this.position.x),
+            (window.innerHeight - window.innerHeight / 2 - this.position.y)
+        );
+
+        this.obj.css({
             top: this.position.y,
             left: this.position.x
         });
@@ -360,8 +385,8 @@ class Player {
 
     setAnimation(animation) {
         this.animation = animation;
-        this.sprite.width(animation.width / 1.5);
-        this.sprite.height(animation.height / 1.5);
+        this.sprite.width(animation.width / this.scale);
+        this.sprite.height(animation.height / this.scale);
     }
 }
 
@@ -418,6 +443,18 @@ class Map {
         }
     }
     obj = $(`<map></map>`).css({zoom: this.scale});
+    position = {x: 0, y: 0}
+
+    setPosition(x, y) {
+        this.position = {
+            x: x,
+            y: y
+        };
+        this.obj.css({
+            left: x,
+            top: y
+        })
+    }
 
     constructor() {
         let floor = $(`<floor></floor>`).css({
@@ -461,16 +498,65 @@ function circleRect(cx, cy, radius, rx, ry, rw, rh) {
     let testY = cy;
 
     // which edge is closest?
-    if (cx < rx)         testX = rx;      // test left edge
-    else if (cx > rx+rw) testX = rx+rw;   // right edge
-    if (cy < ry)         testY = ry;      // top edge
-    else if (cy > ry+rh) testY = ry+rh;   // bottom edge
+    if (cx < rx) testX = rx;      // test left edge
+    else if (cx > rx + rw) testX = rx + rw;   // right edge
+    if (cy < ry) testY = ry;      // top edge
+    else if (cy > ry + rh) testY = ry + rh;   // bottom edge
 
     // get distance from closest edges
-    let distX = cx-testX;
-    let distY = cy-testY;
-    let distance = Math.sqrt( (distX*distX) + (distY*distY) );
+    let distX = cx - testX;
+    let distY = cy - testY;
+    let distance = Math.sqrt((distX * distX) + (distY * distY));
 
     // if the distance is less than the radius, collision!
     return distance <= radius;
 }
+
+function tutorial() {
+    //это array push
+    let ggg = [7, 6, 3, 12, 33]
+    ggg.push(22)
+//получится://[7,6,3,12,33,22]
+
+
+//это  array length
+//просто делаем масив с числами
+    let hhh = [1, 2, 3, 4, 677, 898090, 7]
+//нам нужно скоротить до трёх например
+//это делается вот так:
+    hhh.length
+//потом получится:let hhh = [1,2,3]
+//я это не где не копировал,а писал сам
+
+
+//foreach выполняет цикл по массиву и имеет внутри себя переменную со значением из массива
+
+    let jjj = [1, 3, 43, 6, 7, 78, 8, 9];
+
+    jjj.forEach((item) => {
+        console.log(item)
+    });
+
+
+//это array includes
+//делаем масив
+    let xxx = [1, 2, 3, "a", "b", "c"];
+//например у тебя огромный массив и тебе нужно проверить есть ли буква "d" или число 4
+//тогда мы пишем название масива например xxx.includes() в скобках пишем число или букву или слово
+    xxx.includes("a");  // истина(есть в массиве)
+    xxx.includes("d"); // ложь(нет в массиве)
+    xxx.includes("b"); // это истина (есть в массиве)
+    xxx.includes(4); // ложь(нет в масиве)
+//итог если мы напишем console.log() то нам выведет "a"(true) "d"(false)и т.д
+
+
+//это array join понял не сразу,но понял
+//делаем масив с числами
+    let aaa = [1, 2, 3];
+//теперь делаем просто обычный let в который напишем название класа а потом .join()
+//в скобочках мы пишем либо "+" либо "-" либо пустые" " они по умолчанию расставляют запятые в массиве
+    let sss = aaa.join("-");
+//итог если мы напишем console.log() нам выведет 1-2-3
+}
+
+

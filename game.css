@@ -20,6 +20,9 @@ sprite {
 player mesh {
     position: absolute;
     transform: translate(-50%, -50%);
-    border: 1px solid #447c32;
+    /*border: 1px solid #447c32;*/
     border-radius: 50%;
+}
+map{
+    position: absolute;
 }

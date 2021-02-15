@@ -11,6 +11,7 @@ body {
     color: #F0F0F0;
     font-size: 20px;
     letter-spacing: 1px;
+    overflow: hidden;
 }
 
 a {
